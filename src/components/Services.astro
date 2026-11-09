@@ -1,0 +1,194 @@
+---
+import { primary, services } from '../data/master';
+---
+
+<section id="services" class="sv">
+  <div class="wrap">
+    <header class="section-head" data-reveal>
+      <span class="section-eyebrow">Форматы работы</span>
+      <h2>Консультация, краткосрочная или&nbsp;долгосрочная терапия.</h2>
+      <p>
+        Краткосрочный формат подходит для&nbsp;конкретной задачи. Долгосрочный
+        для&nbsp;глубокой перестройки жизни и&nbsp;поддержки в&nbsp;сложные периоды.
+      </p>
+    </header>
+
+    <div class="grid">
+      {services.map((s, i) => (
+        <article
+          class={`card ${s.highlight ? 'card--on' : ''}`}
+          data-reveal
+          data-reveal-delay={Math.min(i * 90, 300)}
+        >
+          <div class="card__head">
+            <span class="kind">{s.kind}</span>
+          </div>
+          <h3>{s.title}</h3>
+          <p class="duration">{s.duration}</p>
+
+          <div class="price">
+            {s.price && <span class="price-big">{s.price}</span>}
+            <span class="price-note">{s.priceNote}</span>
+          </div>
+
+          <p class="pitch">{s.pitch}</p>
+
+          <a class={`btn ${s.highlight ? 'btn-primary' : 'btn-secondary'}`} href={primary.href}>
+            <span>{s.cta}</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <p class="foot" data-reveal>
+      Работаю со&nbsp;взрослыми. Очно в&nbsp;Барнауле и&nbsp;онлайн.
+    </p>
+  </div>
+</section>
+
+<style>
+  .sv {
+    background: var(--bg);
+  }
+  .section-head {
+    max-width: 720px;
+    margin-bottom: 56px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 40px -24px rgba(31, 25, 21, 0.18);
+  }
+  .card--on {
+    background: var(--ink);
+    color: #ffffff;
+    border-color: var(--ink);
+  }
+  .card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    min-height: 22px;
+  }
+  .kind {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .card--on .kind {
+    color: var(--accent-line);
+  }
+  .pin {
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--accent-soft);
+    padding: 4px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  h3 {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 0;
+    font-weight: 400;
+  }
+  .card--on h3 {
+    color: #ffffff;
+  }
+  .duration {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+  .card--on .duration {
+    color: var(--accent-line);
+  }
+  .price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .card--on .price {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  .price-big {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .card--on .price-big {
+    color: #ffffff;
+  }
+  .price-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  .card--on .price-note {
+    color: var(--accent-line);
+  }
+  .pitch {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    margin: 0;
+    flex-grow: 1;
+  }
+  .card--on .pitch {
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .card .btn {
+    margin-top: 4px;
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+  .card--on .btn-primary {
+    background: var(--accent);
+    color: #ffffff;
+  }
+  .card--on .btn-primary:hover {
+    background: #6a8956;
+  }
+
+  .foot {
+    margin-top: 36px;
+    text-align: center;
+    color: var(--ink-muted);
+    font-size: 14.5px;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

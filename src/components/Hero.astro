@@ -1,0 +1,201 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '../assets/photos/hero.jpg';
+import CtaGroup from './CtaGroup.astro';
+---
+
+<section class="hero">
+  <div class="wrap grid">
+    <div class="copy">
+      <p class="eyebrow">Психолог · телесный терапевт · Барнаул и&nbsp;онлайн</p>
+
+      <h1>
+        Живой и&nbsp;глубокий
+        <span class="accent">контакт с&nbsp;собой.</span>
+      </h1>
+
+      <p class="sub">
+        Помогаю проживать кризисы, разбираться в&nbsp;чувствах и&nbsp;находить
+        опору. <em>Бережно, без давления на&nbsp;себя.</em>
+      </p>
+
+      <div class="ctas">
+        <CtaGroup variant="primary" />
+        <a class="btn btn-ghost" href="#services">Форматы и&nbsp;цены</a>
+      </div>
+
+      <p class="avail" aria-label="Формат приёма">
+        <span class="pulse" aria-hidden="true"></span>
+        <span>Консультирую взрослых очно в&nbsp;Барнауле и&nbsp;онлайн.</span>
+      </p>
+    </div>
+
+    <figure class="portrait">
+      <div class="frame">
+        <Image
+          src={heroImg}
+          alt="Полина Зейгерман, психолог, Барнаул"
+          widths={[520, 780, 1040]}
+          sizes="(max-width: 1024px) 520px, 440px"
+          format="webp"
+          quality={88}
+          loading="eager"
+          class="portrait-img"
+        />
+        <div class="badge">
+          <span class="badge-top">Автор метафорических карт</span>
+          <span class="badge-big">2&nbsp;колоды</span>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: clamp(48px, 6vw, 80px) 0 clamp(56px, 7vw, 96px);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+    overflow: hidden;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  .eyebrow {
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  h1 {
+    margin-bottom: 24px;
+    font-size: clamp(40px, 5.1vw, 66px);
+  }
+  .accent {
+    color: var(--accent);
+    font-style: italic;
+  }
+  .sub {
+    font-family: var(--font-serif);
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.45;
+    color: var(--ink-muted);
+    max-width: 560px;
+    margin-bottom: 36px;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  .sub em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .ctas {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .avail {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    margin: 0;
+    padding: 4px 0;
+  }
+  .pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3a9c5e;
+    box-shadow: 0 0 0 0 rgba(58, 156, 94, 0.6);
+    animation: pulse 2s ease-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(58, 156, 94, 0.5); }
+    70% { box-shadow: 0 0 0 9px rgba(58, 156, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(58, 156, 94, 0); }
+  }
+
+  /* portrait */
+  .portrait {
+    margin: 0;
+    position: relative;
+  }
+  .frame {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 440px;
+    margin-left: auto;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+      0 40px 60px -30px rgba(31, 25, 21, 0.25),
+      0 20px 30px -20px rgba(31, 25, 21, 0.1);
+  }
+  .portrait-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .badge {
+    position: absolute;
+    left: -14px;
+    bottom: 32px;
+    background: #ffffff;
+    padding: 16px 32px 18px 32px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px -20px rgba(31, 25, 21, 0.25);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+  }
+  .badge-top {
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    line-height: 1;
+  }
+  .badge-big {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    white-space: nowrap;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 1024px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .copy {
+      order: 0;
+    }
+    .portrait {
+      order: 1;
+    }
+    .frame {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+  }
+  @media (max-width: 600px) {
+    .frame {
+      max-width: 360px;
+    }
+  }
+</style>

@@ -1,0 +1,78 @@
+---
+import { master } from '../data/master';
+import CtaGroup from './CtaGroup.astro';
+---
+
+<section class="compact cta">
+  <div class="wrap panel" data-reveal>
+    <div class="text">
+      <span class="section-eyebrow">Запись на консультацию</span>
+      <h2>
+        Если вам важно найти опору в&nbsp;сложное время, <em>напишите</em>.
+        Я&nbsp;вам рада.
+      </h2>
+    </div>
+    <div class="actions">
+      <CtaGroup variant="primary" tone="dark" />
+      <a class="btn btn-ghost" href={master.phoneHref}>
+        <span>Позвонить · {master.phone}</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-top: clamp(40px, 5vw, 80px);
+  }
+  .panel {
+    background: var(--ink);
+    color: #ffffff;
+    padding: clamp(40px, 6vw, 80px) clamp(28px, 5vw, 64px);
+    border-radius: var(--radius-lg);
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .panel .section-eyebrow {
+    color: var(--accent-line);
+  }
+  h2 {
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-top: 16px;
+    color: #ffffff;
+  }
+  h2 em {
+    font-style: italic;
+    color: var(--accent-line);
+  }
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .actions :global(.btn-primary) {
+    background: var(--accent);
+    color: #ffffff;
+  }
+  .actions :global(.btn-primary):hover {
+    background: #6a8956;
+  }
+  .actions .btn-ghost {
+    color: var(--accent-line);
+    padding: 0;
+    font-size: 14px;
+  }
+  .actions .btn-ghost:hover {
+    color: #ffffff;
+  }
+  @media (max-width: 860px) {
+    .panel {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

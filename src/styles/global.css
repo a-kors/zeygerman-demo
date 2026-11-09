@@ -1,0 +1,291 @@
+/* ---------- базовая палитра и типографика ---------- */
+
+:root {
+  /* нейтраль: тёплая основа */
+  --ink: #1f1915;
+  --ink-strong: #0b0806;
+  --ink-muted: #665e55;
+  --ink-soft: #988d80;
+
+  /* фоны */
+  --bg: #fbf8f3;        /* тёплый кремовый фон */
+  --bg-soft: #f3ede1;   /* ещё теплее, песочный off-white */
+  --bg-dark: #221a13;   /* тёмный тёплый для контрастных секций */
+
+  /* акцент: приглушённый шалфей (природа, ☘ у неё в статусе) */
+  --accent: #5b7748;
+  --accent-ink: #ffffff;
+  --accent-soft: #e7eedc;
+  --accent-line: #c5d4b1;
+
+  /* служебное */
+  --line: #e8dfcf;
+  --line-strong: #d3c6ac;
+
+  /* размеры */
+  --max-w: 1180px;
+  --pad-x: clamp(20px, 5vw, 48px);
+  --radius: 14px;
+  --radius-lg: 24px;
+
+  /* типографика */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Pragmatica", Helvetica, Arial, sans-serif;
+  --font-serif: "PT Serif", Georgia, "Times New Roman", serif;
+}
+
+/* ---------- reset ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------- базовая типографика ---------- */
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(42px, 7vw, 92px);
+  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 4.2vw, 48px);
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  font-size: clamp(19px, 2vw, 22px);
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+p {
+  margin: 0;
+}
+
+/* ---------- контейнер ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+/* ---------- секции ---------- */
+
+section {
+  padding: clamp(56px, 7vw, 96px) 0;
+}
+
+section.compact {
+  padding: clamp(40px, 5vw, 72px) 0;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+
+.section-head {
+  max-width: 740px;
+  margin-bottom: 56px;
+}
+
+.section-head p {
+  margin-top: 20px;
+  color: var(--ink-muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* ---------- кнопки ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 26px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  border: 1.5px solid transparent;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+.btn-secondary:hover {
+  border-color: var(--ink);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 0;
+}
+
+.btn-ghost:hover {
+  color: var(--accent);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.18s ease;
+}
+
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- хелперы ---------- */
+
+.serif {
+  font-family: var(--font-serif);
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+.soft-bg {
+  background: var(--bg-soft);
+}
+
+.hair-line {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+/* ---------- фокус ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---------- подчёркивания ссылок в тексте ---------- */
+
+.body-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.body-link:hover {
+  color: var(--ink);
+}
+
+/* ---------- scroll reveal ---------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1s cubic-bezier(0.2, 0.65, 0.2, 1),
+    transform 1s cubic-bezier(0.2, 0.65, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal="right"] {
+  transform: translateX(-28px);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import aboutImg from '../assets/photos/about.jpg';
+import { bioFacts } from '../data/master';
+---
+
+<section id="about">
+  <div class="wrap grid">
+    <figure class="photo" data-reveal>
+      <Image
+        src={aboutImg}
+        alt="Полина Зейгерман"
+        widths={[480, 720, 960]}
+        sizes="(max-width: 860px) 440px, 420px"
+        format="webp"
+        quality={88}
+        loading="lazy"
+        class="photo-img"
+      />
+    </figure>
+
+    <div class="copy" data-reveal data-reveal-delay="140">
+      <span class="section-eyebrow">Обо мне</span>
+      <h2>
+        Я пришла в&nbsp;профессию <em>через собственные кризисы</em>
+        и&nbsp;их&nbsp;решение.
+      </h2>
+
+      <p class="lead">
+        Окончила Институт психологии и&nbsp;педагогики АлтГПУ. В&nbsp;прошлом
+        преподаватель и&nbsp;организатор социально значимых проектов
+        для&nbsp;помогающих специалистов и&nbsp;молодёжи. Сейчас веду частную
+        психологическую практику и&nbsp;блог.
+      </p>
+
+      <p>
+        Автор метафорических карт: женскую колоду создала в&nbsp;дни личного
+        кризиса и&nbsp;глубокого перехода. Люблю творчество всей душой: петь, танцевать,
+        рисовать. Жена и&nbsp;мама двоих сыновей, вместе путешествуем
+        по&nbsp;Алтайскому краю.
+      </p>
+
+      <dl class="facts">
+        {bioFacts.map((f) => (
+          <div>
+            <dt>{f.value}</dt>
+            <dd>{f.label}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <aside class="project">
+        <span class="project-kind">Проект</span>
+        <p>
+          Одна из&nbsp;авторов и&nbsp;организаторов краевого психологического
+          форума «Социальные компетенции 21&nbsp;века» (апрель 2023, 200&nbsp;участников)
+          о&nbsp;профилактике эмоционального выгорания помогающих специалистов.
+        </p>
+        <blockquote>«Видно, что Форум сделали люди, которые сильно любят свою работу».</blockquote>
+        <span class="project-src">Из&nbsp;отзыва участника</span>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  .photo {
+    margin: 0;
+  }
+  .photo-img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+  }
+  h2 {
+    margin-bottom: 28px;
+  }
+  h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .lead {
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  .copy p {
+    color: var(--ink-muted);
+    margin-bottom: 18px;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  .copy p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+
+  .project {
+    margin-top: 32px;
+    padding: 22px 24px;
+    background: var(--accent-soft);
+    border-radius: 16px;
+  }
+  .project-kind {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .copy .project p {
+    margin: 8px 0 12px;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+  .project blockquote {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .project-src {
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--ink-muted);
+  }
+  .facts {
+    margin: 36px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .facts div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .facts dt {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  .facts dd {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .photo {
+      max-width: 440px;
+    }
+  }
+  @media (max-width: 560px) {
+    .facts {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+</style>

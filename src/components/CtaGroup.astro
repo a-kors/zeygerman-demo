@@ -1,0 +1,98 @@
+---
+import { primary, socials } from '../data/master';
+
+interface Props {
+  label?: string;
+  variant?: 'primary' | 'secondary';
+  tone?: 'default' | 'dark';
+  size?: 'md' | 'sm';
+}
+
+const {
+  label = primary.label,
+  variant = 'primary',
+  tone = 'default',
+  size = 'md',
+} = Astro.props;
+---
+
+<div class={`cta-group cta-group--${tone} cta-group--${size}`}>
+  <a class={`btn btn-${variant} cta-group__main`} href={primary.href}>
+    <span>{label}</span>
+    <span class="arrow" aria-hidden="true">→</span>
+  </a>
+
+  {socials.map((s) => (
+    <a class="cta-group__social" href={s.href} aria-label={s.label} title={s.label}>
+      {s.kind === 'telegram' && (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4 20-7Z M22 2 11 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      )}
+      {s.kind === 'whatsapp' && (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 20.5 4.8 16.6A8.5 8.5 0 1 1 8 19.6l-4.5.9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8.6c.2-.5.5-.6.8-.6h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.7l-.5.6c-.1.2-.1.4 0 .6.6 1 1.4 1.8 2.4 2.4.2.1.4.1.6 0l.6-.5c.2-.1.5-.2.7-.1l1.6.7c.3.1.4.3.4.5v.5c0 .3-.1.6-.6.8-.6.3-1.3.4-2 .2-2.5-.7-4.5-2.7-5.2-5.2-.2-.7-.1-1.4.2-2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+      )}
+      {s.kind === 'vk' && (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 7h3c0.5 3 1.7 5.7 3.5 7v-7h3v3c0 0.9 0.5 1.3 1 1.3 0.5 0 1-0.4 1.3-1C15.7 9 16.5 7.6 17 7h3c-0.6 2-2.2 4.4-3.3 5.5-0.3 0.3-0.3 0.5 0 0.9 0.5 0.5 2.5 2.9 3 4.1 0.2 0.5-0.1 0.8-0.6 0.8H16c-0.5 0-0.9-0.2-1.3-0.6-0.9-0.9-1.7-2.2-2.5-2.2-0.3 0-0.5 0.2-0.5 0.8V17c0 0.6-0.3 1-1.5 1-3 0-6-2-8.1-6.3C1 10 1 7.5 3.5 7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      )}
+    </a>
+  ))}
+</div>
+
+<style>
+  .cta-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .cta-group__social {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    background: #ffffff;
+    transition: color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .cta-group__social:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .cta-group--sm .cta-group__social {
+    width: 36px;
+    height: 36px;
+  }
+  .cta-group--sm .cta-group__social svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .cta-group--dark .cta-group__main {
+    background: var(--accent);
+    color: #ffffff;
+  }
+  .cta-group--dark .cta-group__main:hover {
+    background: #6a8956;
+  }
+  .cta-group--dark .cta-group__social {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .cta-group--dark .cta-group__social:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+  @media (max-width: 480px) {
+    .cta-group--dark .cta-group__main {
+      flex-basis: 100%;
+      justify-content: center;
+    }
+  }
+</style>

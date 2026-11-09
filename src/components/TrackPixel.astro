@@ -1,0 +1,13 @@
+---
+import { site } from '../data/master';
+const url = site.sellaryTrackUrl;
+---
+
+<script define:vars={{ url }}>
+  (function () {
+    var r = new URLSearchParams(location.search).get('r');
+    if (r) {
+      new Image().src = url + '/api/t/o?r=' + encodeURIComponent(r);
+    }
+  })();
+</script>
