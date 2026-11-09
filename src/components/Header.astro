@@ -274,6 +274,12 @@ const nav = [
     .right { margin-left: auto; }
   }
 
+  :global(html.no-scroll) .hdr {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
   :global(html.no-scroll),
   :global(html.no-scroll body) {
     overflow: hidden;
