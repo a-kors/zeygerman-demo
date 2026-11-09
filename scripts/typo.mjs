@@ -6,7 +6,10 @@ const SHORT = 'в|во|и|с|со|к|ко|о|об|у|а|я|на|не|ни|но|�
 const re = new RegExp(`(?<=^|[\\s(«">])(${SHORT})[ \\t\\r\\n]+(?=[^\\s<])`, 'giu');
 
 function fixText(t) {
-  return t.replace(re, (m, w) => `${w} `);
+  return t
+    .replace(re, (m, w) => `${w}\u00a0`)
+    .replace(/(\d)[ \t]+(?=\d{3}(?!\d))/g, '$1\u00a0')
+    .replace(/(\d)[ \t]+(?=(₽|руб|лет|год|мин|час|%))/g, '$1\u00a0');
 }
 
 function processHtml(html) {
