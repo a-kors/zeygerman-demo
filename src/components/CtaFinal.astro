@@ -3,78 +3,186 @@ import { master } from '../data/master';
 import CtaGroup from './CtaGroup.astro';
 ---
 
-<section class="compact cta">
-  <div class="wrap">
-  <div class="panel" data-reveal>
-    <div class="text">
-      <span class="section-eyebrow">Запись на консультацию</span>
-      <h2>
-        Если вам важно найти опору в&nbsp;сложное время, <em>напишите</em>.
-        Я&nbsp;вам рада.
-      </h2>
+<!--
+  Финал: FAQ выше и этот блок на одном фоне (--bg-soft), в конце экран целиком уходит в цвет сферы (--warm),
+  футер уже этого цвета. Крупная фраза и кнопка прилипают по центру,
+  снизу поднимается мягкое тёплое свечение и растекается в том числе под FAQ и под футер (их содержимое
+  поднято над сферой). Всё привязано к прокрутке (src/scripts/motion.ts), при «уменьшить движение» сразу конечное состояние.
+-->
+<section class="sun-ft" aria-labelledby="final-h">
+  <div class="sun-scene">
+    <div class="sun-stick">
+      <div class="sun-clip" aria-hidden="true"><div class="sun-ball"></div></div>
+      <div class="sun-copy wrap">
+        <span class="sun-eyebrow">Запись на консультацию</span>
+        <h2 id="final-h" class="fs-h" data-words>Если вам важно найти опору<br />в&nbsp;сложное время, напишите.</h2>
+        <p class="sun-sub">Я&nbsp;вам рада.</p>
+        <div class="sun-actions">
+          <CtaGroup variant="primary" />
+          <a class="sun-phone" href={master.phoneHref}>Позвонить · {master.phone}</a>
+        </div>
+      </div>
     </div>
-    <div class="actions">
-      <CtaGroup variant="primary" tone="dark" />
-      <a class="btn btn-ghost" href={master.phoneHref}>
-        <span>Позвонить · {master.phone}</span>
-      </a>
-    </div>
-  </div>
   </div>
 </section>
 
 <style>
-  .cta {
-    padding-top: clamp(40px, 5vw, 80px);
+  .sun-ft {
+    /* цвет, в который уходит экран: центр сферы поверх фона */
+    --warm: #c3d5a7;
+    padding: 0;
+    background: var(--bg-soft);
   }
-  .panel {
-    background: var(--ink);
-    color: #ffffff;
-    padding: clamp(40px, 6vw, 80px) clamp(28px, 5vw, 64px);
-    border-radius: var(--radius-lg);
+  /* содержимое соседей (блок перед финалом и футер) поверх свечения, их фон под ним */
+  :global(section:has(+ .sun-ft) > *),
+  :global(footer > *) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* высокая сцена: экран прилипшей сцены + полтора экрана прокрутки на анимацию */
+  .sun-scene {
+    position: relative;
+    height: 250vh;
+  }
+  .sun-stick {
+    position: sticky;
+    top: 0;
+    height: 100vh;
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 48px;
-    align-items: center;
+    place-items: center;
   }
-  .panel .section-eyebrow {
-    color: var(--accent-line);
+  /* слой свечения шире экрана сцены: вверх на высоту блока перед финалом, вниз на высоту футера
+     (--up, --down ставит motion.ts); overflow обрезает сферу, чтобы не было прокрутки вбок */
+  .sun-clip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1px * var(--up, 0));
+    bottom: calc(-1px * var(--down, 0));
+    overflow: hidden;
+    pointer-events: none;
   }
-  h2 {
-    font-size: clamp(28px, 3.6vw, 44px);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-top: 16px;
-    color: #ffffff;
+  /* в конце весь слой (экран, и под футером тоже) поверх сферы становится её цветом: экран меняет цвет */
+  .sun-clip::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--warm);
+    opacity: var(--fill, 0);
   }
-  h2 em {
-    font-style: italic;
-    color: var(--accent-line);
+
+  /* сфера: огромный круг с мягким радиальным градиентом без края, светлый шалфей в оттенке акцента */
+  .sun-ball {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--up, 0) * 1px + 50vh);
+    width: 200vmax;
+    height: 200vmax;
+    margin: -100vmax 0 0 -100vmax;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      rgba(166, 199, 132, 0.62) 0%,
+      rgba(174, 203, 141, 0.55) 16%,
+      rgba(183, 207, 152, 0.44) 32%,
+      rgba(195, 213, 167, 0.32) 48%,
+      rgba(208, 220, 183, 0.2) 64%,
+      rgba(224, 228, 202, 0.09) 80%,
+      rgba(243, 237, 225, 0) 100%
+    );
+    transform: translateY(calc(42vh * (1 - var(--sb, 0)))) scale(calc(0.5 + 1.6 * var(--sg, 0)));
+    opacity: min(1, calc(var(--sb, 0) * 5));
+    will-change: transform;
   }
-  .actions {
+
+  .sun-copy {
+    position: relative;
+    z-index: 1;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
+    align-items: center;
   }
-  .actions :global(.btn-primary) {
-    background: var(--accent);
-    color: #ffffff;
+  .sun-eyebrow {
+    font-size: 12.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 28px;
   }
-  .actions :global(.btn-primary):hover {
-    background: #6a8956;
+  .fs-h {
+    margin: 0 0 22px;
+    font-size: clamp(40px, 6.4vw, 96px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    color: var(--ink);
   }
-  .actions .btn-ghost {
-    color: var(--accent-line);
-    padding: 0;
+  /* каждое слово: из размытого, прозрачного и чуть ниже в резкое на месте; --wp от 0 до 1 */
+  .fs-h :global(.w) {
+    display: inline-block;
+    vertical-align: bottom;
+    padding: 0 0.03em 0.08em;
+  }
+  .fs-h :global(.w i) {
+    display: inline-block;
+    font-style: normal;
+    transform: translateY(calc(28% * (1 - var(--wp, 1))));
+    filter: blur(calc(16px * (1 - var(--wp, 1))));
+    opacity: var(--wp, 1);
+  }
+  .fs-h :global(.w.l2 i) {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .sun-sub {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 1.8vw, 22px);
+    color: var(--ink-muted);
+    margin-bottom: 40px;
+  }
+  .sun-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .sun-actions :global(.cta-group__main) {
+    padding: 20px 38px;
+    font-size: 17px;
+    box-shadow: 0 26px 50px -24px rgba(91, 119, 72, 0.55);
+  }
+  .sun-actions :global(.cta-group__social) {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+  .sun-phone {
     font-size: 14px;
+    color: var(--ink-muted);
+    transition: color 0.2s;
   }
-  .actions .btn-ghost:hover {
-    color: #ffffff;
+  .sun-phone:hover {
+    color: var(--accent);
   }
-  @media (max-width: 860px) {
-    .panel {
-      grid-template-columns: 1fr;
+
+  @media (max-width: 760px) {
+    .sun-scene {
+      height: 200vh;
+    }
+  }
+  @media (max-width: 480px) {
+    .sun-actions :global(.cta-group) {
+      justify-content: center;
+    }
+    .sun-actions :global(.cta-group__main) {
+      padding: 18px 26px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fs-h :global(.w i) {
+      transform: none !important;
+      filter: none !important;
     }
   }
 </style>

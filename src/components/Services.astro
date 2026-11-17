@@ -18,7 +18,7 @@ import { primary, services } from '../data/master';
         <article
           class={`card ${s.highlight ? 'card--on' : ''}`}
           data-reveal
-          data-reveal-delay={Math.min(i * 90, 300)}
+          data-reveal-delay={s.highlight ? 0 : Math.min(i * 90, 300)}
         >
           <div class="card__head">
             <span class="kind">{s.kind}</span>
@@ -78,6 +78,23 @@ import { primary, services } from '../data/master';
     background: var(--ink);
     color: #ffffff;
     border-color: var(--ink);
+  }
+  /* выделенный тариф: тёмный цвет растекается из середины карточки, когда она появляется */
+  :global(html.motion) .card--on {
+    background: radial-gradient(circle at 50% 55%, var(--ink) var(--fill-r), #ffffff calc(var(--fill-r) + 0.5%));
+    transition: --fill-r 0.8s cubic-bezier(0.55, 0, 0.25, 1) 0.05s, transform 1s cubic-bezier(0.2, 0.65, 0.2, 1), box-shadow 0.2s ease,
+      opacity 0.6s cubic-bezier(0.2, 0.65, 0.2, 1), border-color 0.4s ease 0.3s;
+    border-color: var(--line);
+  }
+  :global(html.motion) .card--on:global(.is-in) {
+    --fill-r: 110%;
+    border-color: var(--ink);
+  }
+  :global(html.motion) .card--on > * {
+    transition: opacity 0.4s ease 0.4s;
+  }
+  :global(html.motion) .card--on:not(:global(.is-in)) > * {
+    opacity: 0;
   }
   .card__head {
     display: flex;
